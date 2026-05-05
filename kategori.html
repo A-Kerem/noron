@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ne Okumak İstersin? — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: rgba(255,255,255,0.08);
+    --accent: #7c6fff;
+    --accent2: #00e5c0;
+    --text: #f0eeff;
+    --muted: rgba(240,238,255,0.5);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .question {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+  }
+
+  .question em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.25rem;
+    padding: 2.5rem 2rem;
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 1.25rem;
+  }
+
+  .cat-card.ai::before { background: radial-gradient(circle at 50% 0%, rgba(124,111,255,0.15), transparent 70%); }
+  .cat-card.science::before { background: radial-gradient(circle at 50% 0%, rgba(0,229,192,0.12), transparent 70%); }
+  .cat-card.tech::before { background: radial-gradient(circle at 50% 0%, rgba(251,191,36,0.1), transparent 70%); }
+  .cat-card.space::before { background: radial-gradient(circle at 50% 0%, rgba(99,179,237,0.12), transparent 70%); }
+
+  .cat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .cat-card:hover::before { opacity: 1; }
+
+  .cat-card.ai:hover { border-color: rgba(124,111,255,0.4); }
+  .cat-card.science:hover { border-color: rgba(0,229,192,0.4); }
+  .cat-card.tech:hover { border-color: rgba(251,191,36,0.3); }
+  .cat-card.space:hover { border-color: rgba(99,179,237,0.4); }
+
+  .cat-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .cat-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .cat-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .cat-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    margin-top: 0.25rem;
+  }
+
+  .cat-card.ai .cat-badge { background: rgba(124,111,255,0.15); color: #a89fff; }
+  .cat-card.science .cat-badge { background: rgba(0,229,192,0.1); color: #00e5c0; }
+  .cat-card.tech .cat-badge { background: rgba(251,191,36,0.1); color: #fbbf24; }
+  .cat-card.space .cat-badge { background: rgba(99,179,237,0.1); color: #63b3ed; }
+
+  /* Article list panel */
+  .articles-panel {
+    display: none;
+    width: 100%;
+    max-width: 640px;
+    margin-top: 3rem;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .articles-panel.visible { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .panel-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .article-row {
+    background: var(--surface);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .article-row:hover { background: var(--surface2); }
+
+  .article-row h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .article-row p { font-size: 0.8rem; color: var(--muted); }
+  .arrow { color: var(--muted); font-size: 1rem; flex-shrink: 0; }
+
+  .empty-msg {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Makaleler</a></li>
+    <li><a href="#">Yapay Zeka</a></li>
+    <li><a href="#">Bilim</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="main">
+  <h1 class="question">Hangi türde makale<br><em>okumak istersin?</em></h1>
+  <p class="subtitle">Bir kategori seç, sana uygun makaleleri gösterelim.</p>
+
+  <div class="categories">
+    <div class="cat-card ai" onclick="showArticles('ai')">
+      <div class="cat-icon">🤖</div>
+      <div class="cat-name">Yapay Zeka</div>
+      <div class="cat-desc">LLM'ler, ajan sistemleri ve AI'ın geleceği</div>
+      <div class="cat-badge">3 makale</div>
+    </div>
+    <div class="cat-card science" onclick="showArticles('science')">
+      <div class="cat-icon">🔬</div>
+      <div class="cat-name">Bilim</div>
+      <div class="cat-desc">Kuantum, CRISPR ve bilimin son sınırları</div>
+      <div class="cat-badge">2 makale</div>
+    </div>
+    <div class="cat-card tech" onclick="showArticles('tech')">
+      <div class="cat-icon">💻</div>
+      <div class="cat-name">Teknoloji</div>
+      <div class="cat-desc">Açık kaynak, donanım ve yazılım dünyası</div>
+      <div class="cat-badge">2 makale</div>
+    </div>
+    <div class="cat-card space" onclick="showArticles('space')">
+      <div class="cat-icon">🚀</div>
+      <div class="cat-name">Uzay</div>
+      <div class="cat-desc">Keşifler, teleskoplar ve evrenin sırları</div>
+      <div class="cat-badge">Yakında</div>
+    </div>
+  </div>
+
+  <div class="articles-panel" id="panel">
+    <div class="panel-title" id="panel-title">Makaleler</div>
+    <div id="article-list"></div>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+
+<script>
+const data = {
+  ai: {
+    label: 'Yapay Zeka Makaleleri',
+    articles: [
+      { title: "GPT'den Sonra: Büyük Dil Modelleri Nereye Gidiyor?", desc: "5 Mayıs 2026 · 8 dk okuma", href: "makale1.html" },
+      { title: "Yapay Zekanın Bilinç Sorusu: Felsefe mi, Bilim mi?", desc: "14 Nisan 2026 · 7 dk okuma", href: "#" },
+      { title: "Nöromorfik Hesaplama: Beyin Gibi Düşünen Çipler", desc: "24 Mart 2026 · 10 dk okuma", href: "#" },
+    ]
+  },
+  science: {
+    label: 'Bilim Makaleleri',
+    articles: [
+      { title: "Kuantum Hesaplama: Gerçekten Hazır Mıyız?", desc: "28 Nisan 2026 · 5 dk okuma", href: "makale2.html" },
+      { title: "CRISPR 2.0: Gen Düzenlemenin Yeni Sınırları", desc: "7 Nisan 2026 · 9 dk okuma", href: "#" },
+    ]
+  },
+  tech: {
+    label: 'Teknoloji Makaleleri',
+    articles: [
+      { title: "Açık Kaynak AI Modellerin Yükselişi", desc: "21 Nisan 2026 · 6 dk okuma", href: "makale3.html" },
+      { title: "Chiplet Mimarisi ve Yarı İletken Devrimi", desc: "31 Mart 2026 · 6 dk okuma", href: "#" },
+    ]
+  },
+  space: {
+    label: 'Uzay Makaleleri',
+    articles: []
+  }
+};
+
+function showArticles(cat) {
+  const panel = document.getElementById('panel');
+  const list = document.getElementById('article-list');
+  const title = document.getElementById('panel-title');
+  const d = data[cat];
+
+  title.textContent = d.label;
+
+  if (d.articles.length === 0) {
+    list.innerHTML = '<div class="empty-msg">Bu kategoride henüz makale yok — yakında gelecek! 🚀</div>';
+  } else {
+    list.innerHTML = '<div class="article-list">' + d.articles.map(a => `
+      <a class="article-row" href="${a.href}">
+        <div style="flex:1">
+          <h3>${a.title}</h3>
+          <p>${a.desc}</p>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    `).join('') + '</div>';
+  }
+
+  panel.classList.add('visible');
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+}
+</script>
+
+</body>
+</html>
