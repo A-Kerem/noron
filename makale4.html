@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yapay Zeka Gerçekten Her Soru İçin 6 Litre Su mu Tüketiyor? — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: rgba(255,255,255,0.08);
+    --accent: #7c6fff;
+    --accent2: #00e5c0;
+    --text: #f0eeff;
+    --muted: rgba(240,238,255,0.5);
+    --tag-bg: rgba(124,111,255,0.12);
+    --tag-color: #a89fff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #7c6fff, #00e5c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .article-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 2rem 8rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text); }
+
+  .article-tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(124,111,255,0.2);
+    margin-bottom: 1.5rem;
+  }
+
+  .article-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+
+  .article-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+  }
+
+  .article-content p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(240,238,255,0.85);
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content strong { color: var(--text); font-weight: 500; }
+
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 0.75rem 0.75rem 0;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    font-size: 1rem;
+    color: rgba(240,238,255,0.9);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .highlight-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+
+  .highlight-box h3 {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tag-color);
+    margin-bottom: 1rem;
+  }
+
+  .highlight-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .highlight-box ul li {
+    font-size: 0.95rem;
+    color: rgba(240,238,255,0.8);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .highlight-box ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+
+  .stat-card .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #7c6fff, #00e5c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-card .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .article-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .article-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+  }
+  .article-footer a:hover { opacity: 0.7; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Makaleler</a></li>
+    <li><a href="#">Yapay Zeka</a></li>
+    <li><a href="#">Bilim</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <a class="back-link" href="index.html">← Ana sayfaya dön</a>
+
+  <div class="article-tag">Yapay Zeka</div>
+
+  <h1 class="article-title">Yapay Zeka Gerçekten Her Soru İçin 6 Litre Su mu Tüketiyor?</h1>
+
+  <div class="article-meta">
+    <span>5 Mayıs 2026</span>
+    <div class="dot"></div>
+    <span>7 dk okuma</span>
+    <div class="dot"></div>
+    <span>Nöron Editörü</span>
+  </div>
+
+  <div class="article-content">
+
+    <p>Sosyal medyada sıkça karşılaşılan bir iddia: "ChatGPT'ye her soru sorduğunda 6 litre su harcıyorsun." Bu rakam doğru mu? Abartı mı? Yoksa daha büyük bir gerçeği mi gizliyor? Yapay zekanın su tüketimi meselesi, görünenden çok daha karmaşık ve bir o kadar da önemli.</p>
+
+    <div class="callout">
+      Yapay zeka modelleri su içmiyor — ama onları çalıştıran veri merkezleri içiyor. Ve içtikleri miktar tahmin ettiğimizden çok daha fazla olabilir.
+    </div>
+
+    <h2>6 Litre Rakamı Nereden Geliyor?</h2>
+
+    <p>Bu rakam, University of California Riverside ve University of Texas araştırmacılarının 2023 yılında yayımladığı bir çalışmaya dayanıyor. Araştırmacılar, GPT-3 modelinin eğitimi sırasında yaklaşık 700.000 litre tatlı su tükettiğini hesapladı. Kullanım aşamasında ise her 20-50 soruya karşılık yaklaşık 500 ml ile birkaç litre arasında su harcandığını öne sürdüler.</p>
+
+    <p>Peki bu su nereye gidiyor? Cevap, veri merkezlerinin soğutma sistemlerinde saklı. <strong>Sunucular çalışırken muazzam miktarda ısı üretiyor.</strong> Bu ısıyı atmak için iki yöntem kullanılıyor: hava soğutması ve su soğutması. Su soğutması çok daha verimli — ama bedeli var.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">700K</div>
+        <div class="stat-label">GPT-3 eğitiminde harcanan litre su</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~500ml</div>
+        <div class="stat-label">Tahmini kullanım başına su miktarı</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">%40</div>
+        <div class="stat-label">Veri merkezlerinin su verimsizlik oranı</div>
+      </div>
+    </div>
+
+    <h2>Ama 6 Litre Doğru Mu?</h2>
+
+    <p>Dürüst cevap: kesin olarak bilmiyoruz. "6 litre" rakamı belirli varsayımlara dayanan bir tahmin ve şartlara göre büyük ölçüde değişiyor. Veri merkezinin bulunduğu iklim, kullandığı soğutma teknolojisi, sorgunun ne kadar karmaşık olduğu ve modelin büyüklüğü — bunların hepsi sonucu etkiliyor.</p>
+
+    <p>Örneğin serin ve nemli bir iklimde kurulan bir veri merkezi çok daha az su kullanıyor. Buna karşın Arizona çölünde kurulan bir merkez, soğutma için çok daha fazla suya ihtiyaç duyuyor. <strong>Microsoft ve Google'ın veri merkezlerinin önemli bir kısmı su kıtlığı yaşayan bölgelerde yer alıyor.</strong></p>
+
+    <div class="callout">
+      Sorun yalnızca ne kadar su kullanıldığı değil — hangi suyun kullanıldığı. İçilebilir tatlı su, veri merkezlerinin soğutmasında kullanılıyor.
+    </div>
+
+    <h2>Eğitim mi, Kullanım mı Daha Fazla Tüketiyor?</h2>
+
+    <p>Yapay zekanın su tüketimini iki aşamada düşünmek gerekiyor. İlki eğitim aşaması — bir modelin milyarlarca parametre üzerinde haftalarca, bazen aylarca süren hesaplama yaptığı dönem. Bu süreç devasa enerji ve su gerektiriyor. GPT-4 gibi büyük modellerin eğitimi için harcanan kaynakların tam verisine şirketler genellikle erişim vermiyor.</p>
+
+    <p>İkincisi kullanım aşaması — her gün milyonlarca insanın sorgu yaptığı dönem. Tek bir sorgu az su harcıyor olabilir; ama günde 100 milyon sorgu yapılıyorsa toplam etki muazzam büyüklüğe ulaşıyor.</p>
+
+    <div class="highlight-box">
+      <h3>Su tüketimini artıran faktörler</h3>
+      <ul>
+        <li>Modelin büyüklüğü — Daha fazla parametre, daha fazla hesaplama demek</li>
+        <li>Veri merkezinin konumu — Sıcak ve kuru bölgeler daha fazla su kullanıyor</li>
+        <li>Soğutma teknolojisi — Evaporatif soğutma suyu buharlaştırarak kullanıyor</li>
+        <li>Sorgu karmaşıklığı — Uzun ve zor sorular daha fazla işlem gücü istiyor</li>
+        <li>Kullanıcı sayısı — Milyonlarca sorgu birikerek dev bir etki yaratıyor</li>
+      </ul>
+    </div>
+
+    <h2>Şirketler Ne Yapıyor?</h2>
+
+    <p>Google, Microsoft ve Meta su tüketimini azaltmak için çeşitli adımlar attıklarını açıklıyor. Hava soğutmasına geçiş, daha verimli çip tasarımları ve yenilenebilir enerji yatırımları bunların başında geliyor. Microsoft, 2030'a kadar tükettiğinden fazla suyu geri kazandırmayı taahhüt etti.</p>
+
+    <p>Ancak şeffaflık hâlâ büyük bir sorun. Şirketlerin büyük çoğunluğu su tüketimine ilişkin detaylı veri yayımlamıyor. Bağımsız araştırmacılar tahminlere dayanmak zorunda kalıyor — bu da kesin rakamlar üretmeyi zorlaştırıyor.</p>
+
+    <h2>Bu Bizi Ne Yapmalı?</h2>
+
+    <p>Yapay zekanın su tüketimi gerçek ve önemli bir sorun. Ama "o zaman yapay zeka kullanmayalım" sonucuna atlamak da doğru değil. Karşılaştırmalı düşünmek gerekiyor: bir veri merkezinin su tüketimi, tarım sektörünün küresel su tüketiminin yanında hâlâ küçük kalıyor. Ama yapay zeka kullanımı katlanarak büyüdükçe bu fark kapanabilir.</p>
+
+    <p><strong>Asıl yapılması gereken şey şeffaflık talep etmek.</strong> Kullandığımız teknolojilerin çevresel maliyetlerini bilme hakkımız var. Şirketler su tüketim verilerini kamuoyuyla paylaşmalı, politika yapıcılar bu alanda standartlar geliştirmeli.</p>
+
+    <p>6 litre doğru mu, değil mi — bu sorudan daha önemlisi şu: yapay zekanın büyümesi, gezegenin su kaynakları üzerinde gerçek bir baskı oluşturuyor. Ve bunu konuşmaya devam etmemiz gerekiyor.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html">← Tüm makaleler</a>
+    <span style="font-size: 0.8rem; color: var(--muted);">5 Mayıs 2026 · Nöron</span>
+  </div>
+
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+
+</body>
+</html>
