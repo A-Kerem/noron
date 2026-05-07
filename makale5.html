@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teknoloji ve Yapay Zeka Bizi Aptallaştırdı mı? — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: rgba(255,255,255,0.08);
+    --accent: #7c6fff;
+    --accent2: #00e5c0;
+    --text: #f0eeff;
+    --muted: rgba(240,238,255,0.5);
+    --tag-bg: rgba(251,191,36,0.1);
+    --tag-color: #fbbf24;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #7c6fff, #00e5c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .article-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 2rem 8rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text); }
+
+  .article-tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(251,191,36,0.2);
+    margin-bottom: 1.5rem;
+  }
+
+  .article-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+
+  .article-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 3rem 0 1rem;
+    line-height: 1.3;
+  }
+
+  .article-content p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(240,238,255,0.85);
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content strong { color: var(--text); font-weight: 500; }
+
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--tag-color);
+    border-radius: 0 0.75rem 0.75rem 0;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    font-size: 1rem;
+    color: rgba(240,238,255,0.9);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .highlight-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+
+  .highlight-box h3 {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tag-color);
+    margin-bottom: 1rem;
+  }
+
+  .highlight-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .highlight-box ul li {
+    font-size: 0.95rem;
+    color: rgba(240,238,255,0.8);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .highlight-box ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--tag-color);
+    font-size: 0.8rem;
+  }
+
+  .article-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .article-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+  }
+  .article-footer a:hover { opacity: 0.7; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Makaleler</a></li>
+    <li><a href="#">Yapay Zeka</a></li>
+    <li><a href="#">Bilim</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <a class="back-link" href="index.html">← Ana sayfaya dön</a>
+
+  <div class="article-tag">Teknoloji</div>
+
+  <h1 class="article-title">Teknoloji ve Yapay Zeka Bizi Aptallaştırdı mı?</h1>
+
+  <div class="article-meta">
+    <span>6 Mayıs 2026</span>
+    <div class="dot"></div>
+    <span>8 dk okuma</span>
+    <div class="dot"></div>
+    <span>Nöron Editörü</span>
+  </div>
+
+  <div class="article-content">
+
+    <p>Telefonsuz bir saati geçirmekte zorlandığını fark ettin mi hiç? Basit bir matematik işlemi için bile hesap makinesine uzandın mı? Ya da bir ismi hatırlamaya çalışırken direkt Google'a baktın mı? Eğer cevapların evet ise yalnız değilsin. Ama bu bizi gerçekten aptallaştırıyor mu — yoksa sadece daha farklı düşünmeye mi başlıyoruz?</p>
+
+    <div class="callout">
+      Her nesil bir öncekini aptallaştıran yeni bir teknolojiyle suçladı. Yazıyı icat edenler bile hafızayı zayıflattığı için eleştirildi. Şimdi sıra yapay zekada.
+    </div>
+
+    <h2>Beyin Tembelleşiyor mu?</h2>
+
+    <p>Nörobilim araştırmaları ilginç bir tablo ortaya koyuyor. Columbia Üniversitesi'nden araştırmacılar, insanların internette bulunan bilgiyi hatırlamaya daha az çaba harcadığını gösterdi. Buna "Google Etkisi" adını verdiler. Beyin, kolayca ulaşılabilecek bilgiyi depolamak yerine o bilgiye nasıl ulaşacağını öğreniyor.</p>
+
+    <p>Bu tembellik mi, verimlilik mi? <strong>İkisi arasındaki çizgi düşündüğümüzden çok daha ince.</strong> Beyin sınırlı bir kapasiteye sahip değil ama dikkat ve enerji kaynakları sınırlı. Bazı şeyleri "dış hafızaya" — yani telefona, buluta, yapay zekaya — devretmek, beynin başka şeylere odaklanmasını sağlayabilir.</p>
+
+    <div class="highlight-box">
+      <h3>Araştırmaların gösterdikleri</h3>
+      <ul>
+        <li>Sürekli bildirim almak odaklanma süresini ortalama 8 saniyeye indiriyor</li>
+        <li>Çoklu ekran kullanımı derin düşünme kapasitesini zayıflatıyor</li>
+        <li>GPS kullananların mekânsal hafızası zamanla azalıyor</li>
+        <li>Ama dijital araç kullananlar bilgiye erişim hızında çok daha iyi</li>
+        <li>Yaratıcı problem çözmede teknoloji destekli gruplar daha başarılı</li>
+      </ul>
+    </div>
+
+    <h2>Yapay Zekanın Özel Tehlikesi</h2>
+
+    <p>Hesap makinesi matematiği, GPS yön bulmayı dışsallaştırdı. Bunlar belirli becerileri törpüledi ama düşünme sürecini çok fazla etkilemedi. Yapay zeka ise farklı bir oyun oynuyor: <strong>düşünmenin kendisini dışsallaştırıyor.</strong></p>
+
+    <p>Bir öğrenci makalesini ChatGPT'ye yazdırdığında sadece yazmayı değil, araştırmayı, sentezlemeyi, argüman geliştirmeyi de devrediyor. Bir çalışan raporunu yapay zekaya hazırlattığında analiz etme, bağlantı kurma ve karar verme kaslarını kullanmıyor. Kullanılmayan kas zayıflar — bu beyin için de geçerli.</p>
+
+    <div class="callout">
+      Asıl soru şu: Yapay zekayı düşüncemizi güçlendirmek için mi, yoksa düşünmekten kaçmak için mi kullanıyoruz?
+    </div>
+
+    <h2>Ama Bir Dakika — Belki Sadece Evriliyor uz</h2>
+
+    <p>Tarihe baktığımızda her yeni teknolojinin "nesli mahvedecek" korkusuyla geldiğini görüyoruz. Sokrates yazının hafızayı yok edeceğinden korktu. Matbaa eleştirmenleri kitapların insanları tembel yapacağını söyledi. Televizyon çocukların zihnini köreltecekti. Hesap makinesi aritmetiği öldürecekti.</p>
+
+    <p>Hiçbiri tam anlamıyla doğru çıkmadı. <strong>İnsanlık her seferinde yeni araçlara uyum sağladı ve farklı ama yeni beceriler geliştirdi.</strong> Belki de yapay zeka çağında ezberleme ve rutin hesaplama yerine eleştirel düşünme, yaratıcılık ve yapay zekayı doğru yönlendirme becerileri daha değerli hale gelecek.</p>
+
+    <h2>Sosyal Medya: Asıl Suçlu Burada mı?</h2>
+
+    <p>Yapay zekadan önce sosyal medya geldi ve etkisi çok daha somut biçimde belgelendi. Kısa video formatları — TikTok, Reels, Shorts — dikkat süresini dramatik biçimde kısalttı. Dopamin döngüleri beynin ödül sistemini ele geçirdi. Sürekli kaydırma alışkanlığı derin okuma ve uzun süreli odaklanma kapasitesini aşındırdı.</p>
+
+    <p>Bu bağlamda yapay zeka, sosyal medyanın açtığı yaranın üzerine tuz basmak olabilir. Ya da iyi kullanıldığında tam tersine o yarayı iyileştiren bir araç. <strong>Fark, teknolojinin kendisinde değil — onu nasıl kullandığımızda.</strong></p>
+
+    <h2>Ne Yapmalı?</h2>
+
+    <p>Teknolojiden kaçmak ne mümkün ne de mantıklı. Ama bilinçsizce teslim olmak da değil. Araştırmacıların önerdiği birkaç pratik denge noktası var: Önce kendin düşün, sonra yapay zekaya sor. Uzun metinler oku, dikkat kasını egzersiz yaptır. Zaman zaman GPS'siz yürü, ezberden hesapla, not al.</p>
+
+    <p>Yapay zeka bir bisiklet gibi. Bisiklet bacaklarını güçlendirmez ama seni daha hızlı götürür. Eğer hiç yürümezsen bacakların zayıflar. <strong>Dengeyi kurmak, teknolojiyi reddetmek ya da ona tamamen teslim olmak yerine onu bilinçli kullanmaktan geçiyor.</strong></p>
+
+    <h2>Sonuç: Aptal Değil, Farklı</h2>
+
+    <p>Teknoloji ve yapay zeka bizi aptallaştırmıyor — ama değiştiriyor. Bazı becerileri törpülüyor, bazılarını güçlendiriyor. Asıl tehlike bu değişimin farkında olmamak. Hangi becerileri insan olarak korumak istediğimize karar vermek, bu çağın en önemli bireysel sorularından biri.</p>
+
+    <p>Nöron olarak bu soruları sormaya, araştırmaları takip etmeye ve teknolojinin insanı nasıl şekillendirdiğini anlamaya devam edeceğiz. Çünkü bunu anlamak, en az teknolojiyi kullanmak kadar önemli.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html">← Tüm makaleler</a>
+    <span style="font-size: 0.8rem; color: var(--muted);">6 Mayıs 2026 · Nöron</span>
+  </div>
+
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+
+</body>
+</html>
