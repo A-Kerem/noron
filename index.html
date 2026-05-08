@@ -179,17 +179,17 @@
 
 <script>
 var ARTICLES = [
-  { title:"Yapay Zeka Gerçekten Her Soru Icin 6 Litre Su mu Tuketiyor?", desc:"5 Mayis 2026 - 7 dk okuma", category:"Yapay Zeka", href:"makale4.html", tags:["su","tuketim","cevre","veri merkezi","sogutma","enerji","iklim","yapay zeka","chatgpt","elektrik","karbon","litre"] },
-  { title:"GPT den Sonra Buyuk Dil Modelleri Nereye Gidiyor?", desc:"5 Mayis 2026 - 8 dk okuma", category:"Yapay Zeka", href:"makale1.html", tags:["gpt","llm","buyuk dil modeli","yapay zeka","gelecek","mimari","ajan","openai","chatgpt","model","transformer"] },
-  { title:"Kuantum Hesaplama Gercekten Hazir miyiz?", desc:"28 Nisan 2026 - 5 dk okuma", category:"Bilim", href:"makale2.html", tags:["kuantum","hesaplama","google","ibm","kubit","bilgisayar","fizik","superpozisyon","qubit","bilim","islemci"] },
-  { title:"Acik Kaynak AI Modellerin Yukselisi", desc:"21 Nisan 2026 - 6 dk okuma", category:"Teknoloji", href:"makale3.html", tags:["acik kaynak","llama","mistral","gemma","meta","yapay zeka","model","ucretsiz","open source","github"] },
-  { title:"Teknoloji ve Yapay Zeka Bizi Aptallasstirdi mi?", desc:"6 Mayis 2026 - 8 dk okuma", category:"Teknoloji", href:"makale5.html", tags:["aptal","beyin","zeka","sosyal medya","dikkat","hafiza","ogrenme","bagimlilik","telefon","internet","dusunme"] }
+  { title:"Yapay Zeka Gerçekten Her Soru İçin 6 Litre Su mu Tüketiyor?", desc:"5 Mayıs 2026 · 7 dk okuma", category:"Yapay Zeka", href:"makale4.html", tags:["su","tüketim","çevre","veri merkezi","soğutma","enerji","iklim","yapay zeka","chatgpt","elektrik","karbon","litre"] },
+  { title:"GPT'den Sonra: Büyük Dil Modelleri Nereye Gidiyor?", desc:"5 Mayıs 2026 · 8 dk okuma", category:"Yapay Zeka", href:"makale1.html", tags:["gpt","llm","büyük dil modeli","yapay zeka","gelecek","mimari","ajan","openai","chatgpt","model","transformer"] },
+  { title:"Kuantum Hesaplama: Gerçekten Hazır Mıyız?", desc:"28 Nisan 2026 · 5 dk okuma", category:"Bilim", href:"makale2.html", tags:["kuantum","hesaplama","google","ibm","kübit","bilgisayar","fizik","süperpozisyon","qubit","bilim","işlemci"] },
+  { title:"Açık Kaynak AI Modellerin Yükselişi", desc:"21 Nisan 2026 · 6 dk okuma", category:"Teknoloji", href:"makale3.html", tags:["açık kaynak","llama","mistral","gemma","meta","yapay zeka","model","ücretsiz","open source","github"] },
+  { title:"Teknoloji ve Yapay Zeka Bizi Aptallaştırdı mı?", desc:"6 Mayıs 2026 · 8 dk okuma", category:"Teknoloji", href:"makale5.html", tags:["aptal","beyin","zeka","sosyal medya","dikkat","hafıza","öğrenme","bağımlılık","telefon","internet","düşünme"] }
 ];
 
 function norm(s) {
   return s.toLowerCase()
-    .replace(/g/g,'g').replace(/u/g,'u').replace(/s/g,'s')
-    .replace(/i/g,'i').replace(/o/g,'o').replace(/c/g,'c')
+    .replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+    .replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c')
     .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
 }
 
