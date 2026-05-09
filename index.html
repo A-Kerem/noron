@@ -158,6 +158,53 @@
       <div class="article-info"><h3>Açık Kaynak AI Modellerin Yükselişi</h3><p>21 Nisan 2026 · 6 dk okuma</p></div>
       <div class="article-tag">Teknoloji</div>
     </div>
+
+    <!-- GİZLİ MAKALELER -->
+    <div id="extra-articles" style="display:none;">
+      <div class="article-row" onclick="window.location.href='makale6.html'">
+        <div class="article-num">06</div>
+        <div class="article-info"><h3>Yapay Zekanın Bilinç Sorusu: Felsefe mi, Bilim mi?</h3><p>14 Nisan 2026 · 7 dk okuma</p></div>
+        <div class="article-tag">Yapay Zeka</div>
+      </div>
+      <div class="article-row" onclick="window.location.href='makale8.html'">
+        <div class="article-num">07</div>
+        <div class="article-info"><h3>CRISPR 2.0: Gen Düzenlemenin Yeni Sınırları</h3><p>7 Nisan 2026 · 9 dk okuma</p></div>
+        <div class="article-tag">Bilim</div>
+      </div>
+      <div class="article-row" onclick="window.location.href='makale9.html'">
+        <div class="article-num">08</div>
+        <div class="article-info"><h3>Chiplet Mimarisi ve Yarı İletken Devrimi</h3><p>31 Mart 2026 · 6 dk okuma</p></div>
+        <div class="article-tag">Teknoloji</div>
+      </div>
+      <div class="article-row" onclick="window.location.href='makale7.html'">
+        <div class="article-num">09</div>
+        <div class="article-info"><h3>Nöromorfik Hesaplama: Beyin Gibi Düşünen Çipler</h3><p>24 Mart 2026 · 10 dk okuma</p></div>
+        <div class="article-tag">Yapay Zeka</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAHA FAZLA GÖSTER BUTONU -->
+  <div style="text-align:center; margin-top:2rem;">
+    <button id="showMoreBtn" onclick="showMore()" style="
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 1rem 3rem;
+      border-radius: 3rem;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    ">
+      <span id="showMoreText">Daha Fazla Makale Göster</span>
+      <span id="showMoreIcon">↓</span>
+    </button>
   </div>
 </section>
 
@@ -213,6 +260,26 @@ function doSearch(query) {
   var scored = ARTICLES.map(function(a){ return {a:a, s:scoreArt(a,words)}; });
   scored.sort(function(x,y){ return y.s - x.s; });
   return scored.filter(function(x){ return x.s >= 3; }).slice(0,3).map(function(x){ return x.a; });
+}
+
+function showMore() {
+  var extra = document.getElementById('extra-articles');
+  var btn = document.getElementById('showMoreBtn');
+  var txt = document.getElementById('showMoreText');
+  var icon = document.getElementById('showMoreIcon');
+  if (extra.style.display === 'none') {
+    extra.style.display = 'contents';
+    txt.textContent = 'Daha Az Göster';
+    icon.textContent = '↑';
+    btn.style.borderColor = 'var(--muted)';
+    btn.style.color = 'var(--muted)';
+  } else {
+    extra.style.display = 'none';
+    txt.textContent = 'Daha Fazla Makale Göster';
+    icon.textContent = '↓';
+    btn.style.borderColor = 'var(--accent)';
+    btn.style.color = 'var(--accent)';
+  }
 }
 
 var inp = document.getElementById('searchInput');

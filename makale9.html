@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiplet Mimarisi ve Yarı İletken Devrimi — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24; --border:rgba(255,255,255,0.08); --accent:#7c6fff; --accent2:#00e5c0; --text:#f0eeff; --muted:rgba(240,238,255,0.5); --tag-bg:rgba(251,191,36,0.1); --tag-color:#fbbf24; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.5rem 3rem; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); z-index:100; }
+  .logo { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; letter-spacing:-0.02em; background:linear-gradient(135deg,#7c6fff,#00e5c0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--text); }
+  .article-wrapper { max-width:720px; margin:0 auto; padding:5rem 2rem 8rem; }
+  .back-link { display:inline-flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.85rem; margin-bottom:3rem; transition:color 0.2s; }
+  .back-link:hover { color:var(--text); }
+  .article-tag { display:inline-block; background:var(--tag-bg); color:var(--tag-color); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(251,191,36,0.2); margin-bottom:1.5rem; }
+  .article-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:900; line-height:1.15; letter-spacing:-0.03em; margin-bottom:1.5rem; }
+  .article-meta { display:flex; align-items:center; gap:1rem; font-size:0.8rem; color:var(--muted); padding-bottom:2rem; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+  .dot { width:3px; height:3px; border-radius:50%; background:var(--muted); }
+  .article-content h2 { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; letter-spacing:-0.02em; margin:3rem 0 1rem; line-height:1.3; }
+  .article-content p { font-size:1.05rem; line-height:1.85; color:rgba(240,238,255,0.85); margin-bottom:1.5rem; }
+  .article-content strong { color:var(--text); font-weight:500; }
+  .callout { background:var(--surface); border-left:3px solid var(--tag-color); border-radius:0 0.75rem 0.75rem 0; padding:1.5rem 2rem; margin:2rem 0; font-size:1rem; color:rgba(240,238,255,0.9); line-height:1.7; font-style:italic; }
+  .highlight-box { background:var(--surface2); border:1px solid var(--border); border-radius:1rem; padding:1.5rem 2rem; margin:2rem 0; }
+  .highlight-box h3 { font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--tag-color); margin-bottom:1rem; }
+  .highlight-box ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+  .highlight-box ul li { font-size:0.95rem; color:rgba(240,238,255,0.8); padding-left:1.2rem; position:relative; }
+  .highlight-box ul li::before { content:'→'; position:absolute; left:0; color:var(--tag-color); font-size:0.8rem; }
+  .article-footer { margin-top:5rem; padding-top:2rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .article-footer a { color:var(--accent); text-decoration:none; font-size:0.9rem; transition:opacity 0.2s; }
+  .article-footer a:hover { opacity:0.7; }
+  footer { border-top:1px solid var(--border); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.8rem; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Makaleler</a></li>
+    <li><a href="#">Yapay Zeka</a></li>
+    <li><a href="#">Bilim</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+  <a class="back-link" href="index.html">← Ana sayfaya dön</a>
+  <div class="article-tag">Teknoloji</div>
+  <h1 class="article-title">Chiplet Mimarisi ve Yarı İletken Devrimi</h1>
+  <div class="article-meta">
+    <span>31 Mart 2026</span><div class="dot"></div>
+    <span>6 dk okuma</span><div class="dot"></div>
+    <span>Nöron Editörü</span>
+  </div>
+  <div class="article-content">
+    <p>Moore Yasası ölüyor — bu artık sektörün genel kabulü. Transistörleri atomik sınırlara yaklaştıkça küçültmek giderek imkânsızlaşıyor, maliyetler artıyor ve fizik yasaları devreye giriyor. Ama yarı iletken endüstrisi teslim olmadı. Çözüm, tek bir büyük çip üretmek yerine küçük parçaları — chiplet — akıllıca birleştirmekten geçiyor.</p>
+
+    <div class="callout">
+      Moore Yasası transistörleri küçülterek ilerliyordu. Chiplet mimarisi ise küçük parçaları birleştirerek ilerliyor. Farklı bir yol, aynı hedef: daha fazla güç, daha az maliyet.
+    </div>
+
+    <h2>Chiplet Nedir?</h2>
+    <p>Geleneksel çip tasarımında işlemci, bellek, grafik birimi ve diğer bileşenler tek bir silikon parçasına entegre edilirdi. Bu yaklaşımın dezavantajı büyük: çip ne kadar büyükse üretim hatası ihtimali o kadar yüksek, maliyet o kadar fazla.</p>
+    <p>Chiplet yaklaşımında ise her işlev ayrı ayrı küçük çipler — chiplet — olarak üretiliyor. Sonra bu chiplet'ler gelişmiş paketleme teknolojileriyle birbirine bağlanıyor. <strong>AMD'nin Ryzen işlemcileri ve Apple'ın M serisi bu yaklaşımın en başarılı örnekleri.</strong> Intel de "Foveros" adını verdiği 3D yığınlama teknolojisiyle bu yarışa katıldı.</p>
+
+    <div class="highlight-box">
+      <h3>Chiplet mimarisinin avantajları</h3>
+      <ul>
+        <li>Maliyet — Küçük parçalar üretmek büyük çiplerden çok daha ucuz</li>
+        <li>Verim — Hata oranı düşük, daha az çip çöpe gidiyor</li>
+        <li>Esneklik — Farklı üreticilerin chiplet'leri birleştirilebilir</li>
+        <li>Hız — En iyi süreci kullanan chiplet seçilebilir</li>
+        <li>Ölçeklenebilirlik — İhtiyaca göre chiplet sayısı artırılabilir</li>
+      </ul>
+    </div>
+
+    <h2>TSMC, Samsung ve Küresel Çip Savaşı</h2>
+    <p>Chiplet devriminin arkasında sadece mühendislik değil, jeopolitik de var. Dünyanın en gelişmiş çiplerinin neredeyse tamamı Taiwan'daki TSMC fabrikalarından çıkıyor. Bu tek nokta bağımlılığı, ABD ve Avrupa'yı kendi üretim kapasitelerini kurmaya zorladı.</p>
+    <p>ABD'nin CHIPS Yasası ile 52 milyar dolarlık yatırım, Avrupa'nın benzer adımları ve TSMC'nin Arizona ve Japonya'daki yeni fabrikaları bu stratejik kaygının ürünü. <strong>Çip artık sadece bir teknoloji bileşeni değil — ulusal güvenlik meselesi.</strong></p>
+
+    <h2>Yapay Zeka Çipleri ve Yeni Mimari</h2>
+    <p>Yapay zekanın yükselişi çip tasarımında yeni bir dönem başlattı. NVIDIA'nın H100 ve H200 GPU'ları, Google'ın TPU'ları ve Amazon'un Trainium çipleri, genel amaçlı işlemciler yerine yapay zeka hesaplaması için özel olarak tasarlandı. Bu çipler, matris çarpımı gibi derin öğrenmenin temel operasyonlarını inanılmaz hızda yapabiliyor.</p>
+    <p>Bir sonraki adım ise bellek ve işlemciyi aynı pakette birleştirmek — HBM (Yüksek Bant Genişlikli Bellek) teknolojisi tam da bunu yapıyor. Veri işlemciye gitmek yerine işlemci verinin yanına geliyor. Bu mimari değişiklik, yapay zeka modellerinin eğitim hızını dramatik biçimde artırıyor.</p>
+
+    <h2>2 Nanometre ve Ötesi</h2>
+    <p>TSMC ve Samsung 2025-2026 itibarıyla 2 nanometre çipleri üretime soktu. "Nanometre" artık gerçek bir fiziksel ölçüyü değil, nesil etiketini ifade ediyor — ama performans artışı gerçek. Her yeni nesil daha az enerji kullanıyor, daha hızlı çalışıyor.</p>
+    <p>Bunun ötesinde araştırmacılar silisyumun alternatiflerini araştırıyor. Galyum nitrür, silisyum karbür ve karbon nanotüpler, bir sonraki nesil transistörlerin adayları arasında. <strong>Silisyum çağının sonu henüz gelmedi, ama başka malzemelerin yükselişi başladı.</strong></p>
+
+    <h2>Sonuç: Parçalanmış Ama Güçlü</h2>
+    <p>Yarı iletken endüstrisi Moore Yasası'nın sınırlarına çarptığında teslim olmak yerine yeniden icat etti kendini. Chiplet mimarisi, 3D paketleme, yapay zekaya özel çipler ve yeni malzemeler — bunların hepsi aynı hedefe hizmet ediyor: daha güçlü, daha verimli, daha erişilebilir hesaplama gücü.</p>
+    <p>Günlük hayatta bu devrimi fark etmeyebilirsiniz. Ama elinizde tuttuğunuz telefon, kullandığınız yapay zeka aracı ve izlediğiniz dizi — hepsi bu sessiz devrimin ürünü.</p>
+  </div>
+  <div class="article-footer">
+    <a href="index.html">← Tüm makaleler</a>
+    <span style="font-size:0.8rem;color:var(--muted);">31 Mart 2026 · Nöron</span>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+</body>
+</html>

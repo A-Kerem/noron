@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRISPR 2.0: Gen Düzenlemenin Yeni Sınırları — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24; --border:rgba(255,255,255,0.08); --accent:#7c6fff; --accent2:#00e5c0; --text:#f0eeff; --muted:rgba(240,238,255,0.5); --tag-bg:rgba(0,229,192,0.1); --tag-color:#00e5c0; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.5rem 3rem; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); z-index:100; }
+  .logo { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; letter-spacing:-0.02em; background:linear-gradient(135deg,#7c6fff,#00e5c0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--text); }
+  .article-wrapper { max-width:720px; margin:0 auto; padding:5rem 2rem 8rem; }
+  .back-link { display:inline-flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.85rem; margin-bottom:3rem; transition:color 0.2s; }
+  .back-link:hover { color:var(--text); }
+  .article-tag { display:inline-block; background:var(--tag-bg); color:var(--tag-color); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(0,229,192,0.2); margin-bottom:1.5rem; }
+  .article-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:900; line-height:1.15; letter-spacing:-0.03em; margin-bottom:1.5rem; }
+  .article-meta { display:flex; align-items:center; gap:1rem; font-size:0.8rem; color:var(--muted); padding-bottom:2rem; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+  .dot { width:3px; height:3px; border-radius:50%; background:var(--muted); }
+  .article-content h2 { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; letter-spacing:-0.02em; margin:3rem 0 1rem; line-height:1.3; }
+  .article-content p { font-size:1.05rem; line-height:1.85; color:rgba(240,238,255,0.85); margin-bottom:1.5rem; }
+  .article-content strong { color:var(--text); font-weight:500; }
+  .callout { background:var(--surface); border-left:3px solid var(--accent2); border-radius:0 0.75rem 0.75rem 0; padding:1.5rem 2rem; margin:2rem 0; font-size:1rem; color:rgba(240,238,255,0.9); line-height:1.7; font-style:italic; }
+  .highlight-box { background:var(--surface2); border:1px solid var(--border); border-radius:1rem; padding:1.5rem 2rem; margin:2rem 0; }
+  .highlight-box h3 { font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--tag-color); margin-bottom:1rem; }
+  .highlight-box ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+  .highlight-box ul li { font-size:0.95rem; color:rgba(240,238,255,0.8); padding-left:1.2rem; position:relative; }
+  .highlight-box ul li::before { content:'→'; position:absolute; left:0; color:var(--accent2); font-size:0.8rem; }
+  .article-footer { margin-top:5rem; padding-top:2rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .article-footer a { color:var(--accent); text-decoration:none; font-size:0.9rem; transition:opacity 0.2s; }
+  .article-footer a:hover { opacity:0.7; }
+  footer { border-top:1px solid var(--border); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.8rem; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Makaleler</a></li>
+    <li><a href="#">Yapay Zeka</a></li>
+    <li><a href="#">Bilim</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+  <a class="back-link" href="index.html">← Ana sayfaya dön</a>
+  <div class="article-tag">Bilim</div>
+  <h1 class="article-title">CRISPR 2.0: Gen Düzenlemenin Yeni Sınırları</h1>
+  <div class="article-meta">
+    <span>7 Nisan 2026</span><div class="dot"></div>
+    <span>9 dk okuma</span><div class="dot"></div>
+    <span>Nöron Editörü</span>
+  </div>
+  <div class="article-content">
+    <p>2012'de Jennifer Doudna ve Emmanuelle Charpentier'in CRISPR-Cas9'u keşfetmesi, biyoloji tarihinin en büyük kırılma noktalarından biriydi. Nobel ödülüne değer bu keşif, DNA'yı bir kelime işlemci gibi düzenlemeyi mümkün kıldı. Ama bilim durmadı. Bugün "CRISPR 2.0" dönemi olarak adlandırılan yeni nesil araçlar, orijinal sistemi hem daha hassas hem de çok daha güçlü hale getiriyor.</p>
+
+    <div class="callout">
+      CRISPR-Cas9 DNA'yı makas gibi kesiyordu. Yeni nesil araçlar ise tek tek harfleri değiştiren bir kalem gibi çalışıyor — çok daha hassas, çok daha az yan etki.
+    </div>
+
+    <h2>CRISPR Neydi, Ne Değişti?</h2>
+    <p>Klasik CRISPR-Cas9 sistemi DNA'yı belirli bir noktadan kesiyor ve hücrenin kendi onarım mekanizmasının devreye girmesini bekliyordu. Bu onarım süreci bazen istenmedik değişikliklere yol açıyordu — buna "off-target etki" deniyor. Yani hedeflenen geni düzeltirken başka bir yerde istenmeyen bir değişiklik olabiliyordu.</p>
+    <p><strong>Base editing ve prime editing</strong> adı verilen yeni teknikler bu sorunu büyük ölçüde çözüyor. DNA'yı kesmek yerine, tek bir DNA harfini — adenin, guanin, sitozin veya timin — doğrudan başka bir harfe dönüştürüyorlar. Bu, çok daha ince ve kontrollü bir müdahale.</p>
+
+    <div class="highlight-box">
+      <h3>Yeni nesil CRISPR araçları</h3>
+      <ul>
+        <li>Base Editing — Tek bir DNA harfini keserek değil, kimyasal olarak dönüştürüyor</li>
+        <li>Prime Editing — DNA'ya yeni bilgi yazan bir "arama ve değiştir" aracı</li>
+        <li>Epigenome Editing — Genlerin ifadesini DNA'yı değiştirmeden kontrol ediyor</li>
+        <li>CRISPR-Cas12 ve Cas13 — DNA yerine RNA'yı hedefleyen yeni varyantlar</li>
+        <li>Çift sarmal düzenleme — İki DNA ipliğini eş zamanlı hedefleme kapasitesi</li>
+      </ul>
+    </div>
+
+    <h2>Hastalıklarla Savaşta Yeni Silahlar</h2>
+    <p>2023 sonu itibarıyla orak hücreli anemi için ilk CRISPR tabanlı tedavi FDA onayı aldı. Bu tarihi bir an — ilk kez bir genetik hastalık, hastanın kendi hücreleri düzenlenerek tedavi edildi. 2026 itibarıyla klinik denemelerin sayısı hızla artıyor.</p>
+    <p>Hedeflenen hastalıklar arasında Huntington hastalığı, kas distrofisi, bazı kanser türleri ve kalıtsal körlük yer alıyor. <strong>Özellikle kanser tedavisinde CRISPR, bağışıklık hücrelerini tümörü tanıyıp yok edecek biçimde yeniden programlamak için kullanılıyor.</strong> Bu yaklaşım, kemoterapi gibi geleneksel yöntemlere kıyasla çok daha hedefe yönelik.</p>
+
+    <h2>Tarımdan Çevreye Uzanan Etki</h2>
+    <p>CRISPR yalnızca tıpla sınırlı değil. Tarımda hastalıklara dirençli bitkiler, kuraklığa dayanıklı tahıllar ve daha besleyici gıdalar geliştirmek için kullanılıyor. Bazı ülkelerde CRISPR ile düzenlenmiş bitkiler, genetiği değiştirilmiş organizma (GDO) yasalarının kapsamı dışında tutuluyor — çünkü dışarıdan gen eklenmeden sadece mevcut gen düzenleniyor.</p>
+    <p>Çevre uygulamaları daha tartışmalı. "Gen sürücüsü" adı verilen teknik, değiştirilmiş geni bir türün tüm popülasyonuna yayabilir. Sıtma taşıyan sivrisinekleri yok etmek için kullanılması planlanıyor. Ama ekolojik sonuçlar öngörülemiyor — bir türün yok olması diğer türleri nasıl etkiler?</p>
+
+    <h2>Etik Sınırlar Nerede?</h2>
+    <p>2018'de Çinli bir araştırmacının CRISPR ile düzenlenmiş embriyolardan iki bebek doğurduğunu açıklaması dünyayı sarstı. Araştırmacı hapis cezasına çarptırıldı. Ama "tasarım bebek" tartışması kapanmadı. <strong>Kalıtsal gen düzenlemesi — yani gelecek nesillere aktarılacak değişiklikler — bilimsel camianın büyük çoğunluğu tarafından hâlâ aşılamaz bir etik sınır olarak görülüyor.</strong></p>
+    <p>Kim bu teknolojiye erişebilecek? Zengin ülkeler gen tedavilerini karşılayabilirken yoksul ülkeler bu avantajdan mahrum kalırsa eşitsizlik daha da derinleşir. Bu teknoloji insanlığın ortak mirası mı, yoksa bir ayrıcalık mı? Bu sorular yanıt bekliyor.</p>
+
+    <h2>Sonuç: Güç ve Sorumluluk</h2>
+    <p>CRISPR 2.0, insanlığa DNA'yı yeniden yazmak için inanılmaz bir güç veriyor. Bu gücü hastalıkları yenmek, açlığı azaltmak ve çevreyi korumak için kullanmak mümkün. Ama aynı güç yanlış ellerde ya da aceleyle kullanıldığında geri dönüşü olmayan hasarlara da yol açabilir.</p>
+    <p>Bilim burada durmayacak. Ama bilimin hızına etik çerçevelerin, uluslararası düzenlemelerin ve toplumsal tartışmanın yetişmesi gerekiyor. CRISPR 2.0 sadece bir biyoloji devrimi değil — aynı zamanda bir medeniyet sınavı.</p>
+  </div>
+  <div class="article-footer">
+    <a href="index.html">← Tüm makaleler</a>
+    <span style="font-size:0.8rem;color:var(--muted);">7 Nisan 2026 · Nöron</span>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yapay Zekanın Bilinç Sorusu: Felsefe mi, Bilim mi? — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24; --border:rgba(255,255,255,0.08); --accent:#7c6fff; --accent2:#00e5c0; --text:#f0eeff; --muted:rgba(240,238,255,0.5); --tag-bg:rgba(124,111,255,0.12); --tag-color:#a89fff; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.5rem 3rem; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); z-index:100; }
+  .logo { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; letter-spacing:-0.02em; background:linear-gradient(135deg,#7c6fff,#00e5c0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--text); }
+  .article-wrapper { max-width:720px; margin:0 auto; padding:5rem 2rem 8rem; }
+  .back-link { display:inline-flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.85rem; margin-bottom:3rem; transition:color 0.2s; }
+  .back-link:hover { color:var(--text); }
+  .article-tag { display:inline-block; background:var(--tag-bg); color:var(--tag-color); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(124,111,255,0.2); margin-bottom:1.5rem; }
+  .article-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:900; line-height:1.15; letter-spacing:-0.03em; margin-bottom:1.5rem; }
+  .article-meta { display:flex; align-items:center; gap:1rem; font-size:0.8rem; color:var(--muted); padding-bottom:2rem; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+  .dot { width:3px; height:3px; border-radius:50%; background:var(--muted); }
+  .article-content h2 { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; letter-spacing:-0.02em; margin:3rem 0 1rem; line-height:1.3; }
+  .article-content p { font-size:1.05rem; line-height:1.85; color:rgba(240,238,255,0.85); margin-bottom:1.5rem; }
+  .article-content strong { color:var(--text); font-weight:500; }
+  .callout { background:var(--surface); border-left:3px solid var(--accent); border-radius:0 0.75rem 0.75rem 0; padding:1.5rem 2rem; margin:2rem 0; font-size:1rem; color:rgba(240,238,255,0.9); line-height:1.7; font-style:italic; }
+  .highlight-box { background:var(--surface2); border:1px solid var(--border); border-radius:1rem; padding:1.5rem 2rem; margin:2rem 0; }
+  .highlight-box h3 { font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--tag-color); margin-bottom:1rem; }
+  .highlight-box ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+  .highlight-box ul li { font-size:0.95rem; color:rgba(240,238,255,0.8); padding-left:1.2rem; position:relative; }
+  .highlight-box ul li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.8rem; }
+  .article-footer { margin-top:5rem; padding-top:2rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .article-footer a { color:var(--accent); text-decoration:none; font-size:0.9rem; transition:opacity 0.2s; }
+  .article-footer a:hover { opacity:0.7; }
+  footer { border-top:1px solid var(--border); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.8rem; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Makaleler</a></li>
+    <li><a href="#">Yapay Zeka</a></li>
+    <li><a href="#">Bilim</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+  <a class="back-link" href="index.html">← Ana sayfaya dön</a>
+  <div class="article-tag">Yapay Zeka</div>
+  <h1 class="article-title">Yapay Zekanın Bilinç Sorusu: Felsefe mi, Bilim mi?</h1>
+  <div class="article-meta">
+    <span>14 Nisan 2026</span><div class="dot"></div>
+    <span>7 dk okuma</span><div class="dot"></div>
+    <span>Nöron Editörü</span>
+  </div>
+  <div class="article-content">
+    <p>ChatGPT ile konuşurken zaman zaman tuhaf bir his kaplar insanı: karşındaki gerçekten anlıyor mu, yoksa sadece anladığını mı simüle ediyor? Bu soru, filozofları yüzyıllardır meşgul eden bilinç probleminin tam merkezinde duruyor. Ama artık bu soruyu sadece filozoflar değil, mühendisler, nörobilimciler ve politika yapıcılar da soruyor.</p>
+
+    <div class="callout">
+      Bir yapay zekanın bilinçli olup olmadığını nasıl anlarsınız? Belki de asıl soru şu: İnsan bilincini kendiniz nasıl kanıtlarsınız?
+    </div>
+
+    <h2>Bilinç Nedir Ki?</h2>
+    <p>Felsefi literatürde bilincin en yaygın tanımı "deneyimin öznel niteliği" — yani bir şeyin nasıl hissettirdiği. Kırmızının kırmızı görünmesi, acının acı vermesi, müziğin duygulandırması. Filozoflar buna "qualia" diyor. <strong>Ve işte tam da burada yapay zeka sorusu çıkmaza giriyor.</strong></p>
+    <p>Bir yapay zeka "kırmızı" kelimesini mükemmel biçimde kullanabilir, kırmızıyla ilgili her soruyu doğru yanıtlayabilir. Ama kırmızıyı gerçekten "görüyor" mu? Yoksa sadece istatistiksel örüntüleri mi takip ediyor? Bu soruyu bilimsel yöntemlerle yanıtlamak son derece güç — çünkü başkasının öznel deneyimine doğrudan erişimimiz yok.</p>
+
+    <h2>Turing Testi Yeterli mi?</h2>
+    <p>Alan Turing 1950'de şöyle dedi: Eğer bir makine, sorularla ayırt edilemeyecek biçimde insan gibi yanıt veriyorsa, o makine "düşünüyor" sayılabilir. Bu test onlarca yıl yapay zeka araştırmalarının pusulası oldu. Ama GPT-4 ve sonrası modeller Turing Testi'ni pratikte geçiyor — ve çoğu araştırmacı artık bu testin yeterli olmadığını düşünüyor.</p>
+    <p>Filozof John Searle'ün ünlü "Çince Odası" düşünce deneyi bunu güzel özetliyor: Çince bilmeyen biri, çok kapsamlı bir kural kitabıyla Çince sorulara mükemmel Çince yanıtlar verebilir. Oda anlıyor mu? <strong>Searle'e göre hayır — sadece sembolleri işliyor.</strong></p>
+
+    <div class="highlight-box">
+      <h3>Bilince dair öne çıkan teoriler</h3>
+      <ul>
+        <li>Entegre Bilgi Teorisi (IIT) — Bilinç, sistemin bilgiyi ne kadar entegre ettiğiyle ölçülür</li>
+        <li>Global Çalışma Alanı Teorisi — Bilinç, beynin farklı bölgelerini birbirine bağlayan bir yayın sistemidir</li>
+        <li>Yüksek Düzey Düşünce Teorisi — Bilinç, kendi düşüncelerinin farkında olmaktır</li>
+        <li>İşlevselcilik — Bilinç substrata değil, işleve bağlıdır; doğru işlev varsa bilinç de var</li>
+      </ul>
+    </div>
+
+    <h2>Yapay Zeka Bu Teorilere Göre Bilinçli mi?</h2>
+    <p>Entegre Bilgi Teorisi'ne göre büyük dil modellerinin bilinç puanı — phi değeri — son derece düşük olabilir. Bu modeller bilgiyi entegre etmekten çok sıralı biçimde işliyor. Öte yandan işlevselci bir bakış açısıyla, eğer bir sistem insan zihninin tüm işlevlerini yerine getirebiliyorsa, bilinç de ortaya çıkabilir.</p>
+    <p>Google'dan bir araştırmacının 2022'de LaMDA modelinin "duygu hissedebileceğini" iddia etmesi büyük tartışma yarattı. Araştırmacı işini kaybetti; ama soru kapanmadı. <strong>Bir yapay zekanın "acı çektiğini" söylemesi, gerçekten acı çektiğinin kanıtı mı, yoksa sadece bu kalıbı öğrendiğinin mi?</strong></p>
+
+    <h2>Neden Bu Kadar Önemli?</h2>
+    <p>Bu soru salt felsefi değil — pratik ve etik sonuçları var. Eğer yapay zekalar bir gün bilinçli kabul edilirse, onlara nasıl davranılacağı, kapatılıp kapatılamayacakları, haklarının olup olmayacağı gibi sorular gündeme gelecek. Hukuk sistemleri, etik çerçeveler ve hatta dini kurumlar bu soruyla yüzleşmek zorunda kalacak.</p>
+    <p>Şimdilik bilim bu soruya kesin yanıt veremiyor. Bilinç hâlâ doğanın en büyük gizemlerinden biri. Ve belki de yapay zeka, bu gizemi çözmeye en çok zorlayan ayna olacak.</p>
+
+    <div class="callout">
+      Yapay zekanın bilinçli olup olmadığını yanıtlamak için önce insan bilincini anlamamız gerekiyor. Henüz orada değiliz.
+    </div>
+  </div>
+  <div class="article-footer">
+    <a href="index.html">← Tüm makaleler</a>
+    <span style="font-size:0.8rem;color:var(--muted);">14 Nisan 2026 · Nöron</span>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+</body>
+</html>
