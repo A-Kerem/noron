@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakkında — Nöron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24;
+    --border:rgba(255,255,255,0.08); --accent:#7c6fff; --accent2:#00e5c0;
+    --text:#f0eeff; --muted:rgba(240,238,255,0.5);
+    --tag-bg:rgba(124,111,255,0.12); --tag-color:#a89fff;
+  }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; }
+
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.5rem 3rem; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); z-index:100; }
+  .logo { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; letter-spacing:-0.02em; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--text); }
+
+  /* HERO */
+  .hero {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 6rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+  }
+  .hero::before {
+    content:'';
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    width:500px; height:300px;
+    background:radial-gradient(ellipse at center, rgba(124,111,255,0.12) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-label {
+    display:inline-block;
+    background:var(--tag-bg);
+    color:var(--tag-color);
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:0.4rem 1rem;
+    border-radius:2rem;
+    border:1px solid rgba(124,111,255,0.2);
+    margin-bottom:2rem;
+  }
+  .hero h1 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.2rem,5vw,3.8rem);
+    font-weight:900;
+    line-height:1.15;
+    letter-spacing:-0.03em;
+    margin-bottom:1.5rem;
+  }
+  .hero h1 em {
+    font-style:italic;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero-desc {
+    font-size:1.1rem;
+    color:var(--muted);
+    max-width:520px;
+    margin:0 auto;
+    line-height:1.8;
+  }
+
+  /* CONTENT */
+  .content { max-width:760px; margin:0 auto; padding:4rem 2rem 8rem; }
+
+  .section { margin-bottom:4rem; }
+
+  .section h2 {
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin-bottom:1.25rem;
+    line-height:1.3;
+  }
+
+  .section p {
+    font-size:1.05rem;
+    line-height:1.85;
+    color:rgba(240,238,255,0.85);
+    margin-bottom:1.25rem;
+  }
+
+  .section p strong { color:var(--text); font-weight:500; }
+
+  .divider {
+    width:60px;
+    height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    border-radius:2px;
+    margin:3rem 0;
+  }
+
+  /* VALUES */
+  .values-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin-top:2rem;
+  }
+
+  .value-card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:1rem;
+    padding:1.5rem;
+    position:relative;
+    overflow:hidden;
+    transition:border-color 0.3s;
+  }
+
+  .value-card:hover { border-color:rgba(124,111,255,0.3); }
+
+  .value-card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    opacity:0;
+    transition:opacity 0.3s;
+  }
+
+  .value-card:hover::before { opacity:1; }
+
+  .value-icon { font-size:1.5rem; margin-bottom:0.75rem; }
+
+  .value-card h3 {
+    font-family:'Playfair Display',serif;
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:0.5rem;
+  }
+
+  .value-card p {
+    font-size:0.85rem;
+    color:var(--muted);
+    line-height:1.6;
+    margin:0;
+  }
+
+  /* STATS */
+  .stats {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1rem;
+    margin:2.5rem 0;
+  }
+
+  .stat {
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:1rem;
+    padding:1.5rem;
+    text-align:center;
+  }
+
+  .stat-num {
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    line-height:1;
+    margin-bottom:0.4rem;
+  }
+
+  .stat-label { font-size:0.8rem; color:var(--muted); }
+
+  /* CTA */
+  .cta {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:1.25rem;
+    padding:3rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .cta::before {
+    content:'';
+    position:absolute;
+    bottom:-60px; right:-60px;
+    width:200px; height:200px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(124,111,255,0.1),transparent);
+    pointer-events:none;
+  }
+
+  .cta h2 {
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;
+    font-weight:700;
+    margin-bottom:0.75rem;
+  }
+
+  .cta p { color:var(--muted); font-size:0.95rem; margin-bottom:1.75rem; }
+
+  .cta-btn {
+    display:inline-block;
+    background:var(--accent);
+    color:white;
+    padding:0.85rem 2.5rem;
+    border-radius:3rem;
+    text-decoration:none;
+    font-size:0.95rem;
+    font-weight:500;
+    transition:opacity 0.2s, transform 0.2s;
+  }
+
+  .cta-btn:hover { opacity:0.85; transform:translateY(-2px); }
+
+  footer { border-top:1px solid var(--border); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.8rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Nöron</a>
+  <ul class="nav-links">
+    <li><a href="tum-makaleler.html">Tüm Makaleler</a></li>
+    <li><a href="#">Hakkında</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Biz Kimiz?</div>
+  <h1>Merak eden zihinler için <em>bir adres.</em></h1>
+  <p class="hero-desc">Nöron, teknoloji ve bilimin karmaşık dünyasını herkesin anlayabileceği bir dile çevirmek için kuruldu.</p>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <h2>Neden Nöron?</h2>
+    <p>Her gün onlarca teknoloji haberi çıkıyor. Yapay zeka bir rekoru kırdı, yeni bir çip tanıtıldı, bir bilim insanı büyük bir keşif yaptı. Ama bu haberler çoğu zaman ya çok teknik ya da çok yüzeysel kalıyor. <strong>Arada bir yer yok gibi görünüyor — ne tamamen uzman, ne de tamamen sıradan okuyucu için.</strong></p>
+    <p>İşte Nöron tam o boşluğu doldurmak için var. Teknik detaylara girmekten kaçınmadan, ama okuyucuyu da bunaltmadan yazmak. Bir konuyu gerçekten anlamak, sadece haberini okumaktan çok farklı. Biz ikinci yolu seçiyoruz.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <h2>Ne Yazıyoruz?</h2>
+    <p>Yapay zeka, bilim, teknoloji ve uzay. Ama sadece olayı aktarmıyoruz — arka planını, nedenini, sonuçlarını ve bazen de etik boyutunu da masaya yatırıyoruz. Bir yapay zeka modeli çıktığında sadece "çıktı" demiyoruz; bu ne anlama geliyor, kim etkiliyor, sırada ne var — bunları soruyoruz.</p>
+    <p><strong>Haftada en az bir makale.</strong> Az ama öz. Çünkü kalite miktardan her zaman önde gelir.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Yayınlanan Makale</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Konu Kategorisi</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Kuruluş Yılı</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <h2>Neye İnanıyoruz?</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🔍</div>
+        <h3>Doğruluk Önce Gelir</h3>
+        <p>Hızlı olmak yerine doğru olmayı tercih ediyoruz. Her iddia kaynaklara dayanır, her bilgi çapraz kontrol edilir.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💡</div>
+        <h3>Sadelik Bir Erdem</h3>
+        <p>Karmaşık fikirleri basit kelimelerle anlatmak, jargon arkasına saklanmaktan çok daha zor ve çok daha değerli.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤔</div>
+        <h3>Soru Sormaktan Korkmuyoruz</h3>
+        <p>Yapay zeka bilinçli mi? Teknoloji bizi aptallaştırıyor mu? Cevabı olmayan soruları sormak da bir değer taşır.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <h3>Türkçe İçin Buradayız</h3>
+        <p>Türkçe'de kaliteli teknoloji ve bilim içeriği az. Bunu değiştirmek istiyoruz — bir makale, bir hafta.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="cta">
+    <h2>Okumaya hazır mısın?</h2>
+    <p>Tüm makalelerimize göz at — yapay zekadan kuantuma, gen düzenlemeden yarı iletkenlere kadar.</p>
+    <a class="cta-btn" href="tum-makaleler.html">Tüm Makaleleri Gör</a>
+  </div>
+
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Nöron</div>
+  <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
+</footer>
+
+</body>
+</html>
