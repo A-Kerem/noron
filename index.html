@@ -208,6 +208,76 @@
 
 
 
+<!-- YAPAY ZEKAYA SOR BÖLÜMÜ -->
+<section class="section" style="padding-top:0; padding-bottom:5rem;">
+  <div class="section-label">Yapay Zekaya Sor</div>
+  <div id="qa-box" style="
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:1.25rem;
+    overflow:hidden;
+    max-width:760px;
+    margin:0 auto;
+  ">
+    <!-- HEADER -->
+    <div style="padding:2rem 2rem 1.5rem; border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+        <span style="font-size:1.5rem;">🤖</span>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;">Nöron'a Sor</h2>
+      </div>
+      <p style="font-size:0.9rem;color:var(--muted);">Teknoloji, yapay zeka veya bilim hakkında aklına takılan her şeyi sorabilirsin.</p>
+    </div>
+
+    <!-- SOHBET ALANI -->
+    <div id="qa-messages" style="
+      padding:1.5rem 2rem;
+      min-height:80px;
+      max-height:420px;
+      overflow-y:auto;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    "></div>
+
+    <!-- GİRİŞ ALANI -->
+    <div style="padding:1.25rem 2rem;border-top:1px solid var(--border);display:flex;gap:0.75rem;align-items:flex-end;">
+      <textarea id="qa-input" placeholder="Sorunuzu yazın... (örn: Yapay zeka nasıl öğrenir?)" style="
+        flex:1;
+        background:var(--surface2);
+        border:1px solid var(--border);
+        border-radius:0.75rem;
+        padding:0.85rem 1.1rem;
+        color:var(--text);
+        font-family:inherit;
+        font-size:0.95rem;
+        outline:none;
+        resize:none;
+        min-height:50px;
+        max-height:120px;
+        line-height:1.5;
+        transition:border-color 0.2s;
+      " rows="1"></textarea>
+      <button id="qa-send" onclick="sendQuestion()" style="
+        background:linear-gradient(135deg,var(--accent),var(--accent2));
+        color:white;
+        border:none;
+        border-radius:0.75rem;
+        padding:0.85rem 1.4rem;
+        font-family:inherit;
+        font-size:0.95rem;
+        font-weight:500;
+        cursor:pointer;
+        transition:opacity 0.2s,transform 0.2s;
+        white-space:nowrap;
+        flex-shrink:0;
+      ">Sor ✦</button>
+    </div>
+    <div style="padding:0.6rem 2rem 1rem;font-size:0.72rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;">
+      ⚡ <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:500;">Nöron AI</span> — Claude Sonnet tarafından desteklenmektedir
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="logo" style="font-size:1.1rem;">Nöron</div>
   <span>© 2026 Nöron · Teknoloji, Yapay Zeka ve Bilim</span>
@@ -271,7 +341,105 @@ function showMore() {
   }
 }
 
-var inp = document.getElementById('searchInput');
+// YAPAY ZEKAYA SOR
+var qaMessages = [];
+
+var qaInput = document.getElementById('qa-input');
+if (qaInput) {
+  qaInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendQuestion(); }
+  });
+  qaInput.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
+}
+
+function addMessage(role, text) {
+  var box = document.getElementById('qa-messages');
+  var isUser = role === 'user';
+  var div = document.createElement('div');
+  div.style.cssText = 'display:flex;flex-direction:column;align-items:' + (isUser ? 'flex-end' : 'flex-start') + ';gap:0.25rem;';
+  div.innerHTML =
+    '<div style="' +
+      'max-width:85%;' +
+      'padding:0.85rem 1.1rem;' +
+      'border-radius:' + (isUser ? '1rem 1rem 0.25rem 1rem' : '1rem 1rem 1rem 0.25rem') + ';' +
+      'background:' + (isUser ? 'var(--accent)' : 'var(--surface2)') + ';' +
+      'color:' + (isUser ? 'white' : 'var(--text)') + ';' +
+      'font-size:0.95rem;line-height:1.65;' +
+    '">' + text + '</div>' +
+    '<span style="font-size:0.7rem;color:var(--muted);padding:0 0.25rem;">' + (isUser ? 'Sen' : '🤖 Nöron AI') + '</span>';
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+  return div;
+}
+
+function addTyping() {
+  var box = document.getElementById('qa-messages');
+  var div = document.createElement('div');
+  div.id = 'qa-typing';
+  div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-start;gap:0.25rem;';
+  div.innerHTML =
+    '<div style="padding:0.85rem 1.1rem;border-radius:1rem 1rem 1rem 0.25rem;background:var(--surface2);display:flex;align-items:center;gap:0.4rem;">' +
+      '<div style="display:flex;gap:4px;">' +
+        '<span style="width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bounce 1s infinite 0s"></span>' +
+        '<span style="width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bounce 1s infinite 0.2s"></span>' +
+        '<span style="width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bounce 1s infinite 0.4s"></span>' +
+      '</div>' +
+    '</div>' +
+    '<span style="font-size:0.7rem;color:var(--muted);padding:0 0.25rem;">🤖 Nöron AI yazıyor...</span>';
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function sendQuestion() {
+  var input = document.getElementById('qa-input');
+  var btn = document.getElementById('qa-send');
+  var q = input.value.trim();
+  if (!q) return;
+
+  addMessage('user', q);
+  qaMessages.push({ role: 'user', content: q });
+  input.value = '';
+  input.style.height = 'auto';
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  addTyping();
+
+  var systemPrompt = 'Sen Nöron adlı bir teknoloji ve bilim blogunun yapay zeka asistanısın. Kullanıcıların teknoloji, yapay zeka, bilim ve uzay hakkındaki sorularını Türkçe olarak yanıtlıyorsun. Cevapların açık, anlaşılır ve merak uyandırıcı olsun. Çok uzun cevaplar verme — 3-5 cümle yeterli. Eğer soru konunla alakasızsa kibarca Nöron\'un odak alanlarına yönlendir.';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: systemPrompt,
+        messages: qaMessages
+      })
+    });
+    var data = await res.json();
+    var answer = (data.content || []).map(function(c){ return c.text || ''; }).join('');
+    if (!answer) answer = 'Üzgünüm, şu an cevap üretemiyorum. Lütfen tekrar dene.';
+    qaMessages.push({ role: 'assistant', content: answer });
+    var typing = document.getElementById('qa-typing');
+    if (typing) typing.remove();
+    addMessage('assistant', answer);
+  } catch(e) {
+    var typing = document.getElementById('qa-typing');
+    if (typing) typing.remove();
+    addMessage('assistant', 'Bağlantı sorunu oluştu. Lütfen tekrar dene.');
+  }
+
+  btn.disabled = false;
+  btn.style.opacity = '1';
+}
+
+var style = document.createElement('style');
+style.textContent = '@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }';
+document.head.appendChild(style);
 var box = document.getElementById('searchResults');
 var tmr;
 
