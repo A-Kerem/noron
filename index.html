@@ -400,30 +400,31 @@ async function sendQuestion() {
   if (!q) return;
 
   addMessage('user', q);
-  qaMessages.push({ role: 'user', content: q });
+  qaMessages.push({ role: 'user', parts: [{ text: q }] });
   input.value = '';
   input.style.height = 'auto';
   btn.disabled = true;
   btn.style.opacity = '0.5';
   addTyping();
 
-  var systemPrompt = 'Sen Nöron adlı bir teknoloji ve bilim blogunun yapay zeka asistanısın. Kullanıcıların teknoloji, yapay zeka, bilim ve uzay hakkındaki sorularını Türkçe olarak yanıtlıyorsun. Cevapların açık, anlaşılır ve merak uyandırıcı olsun. Çok uzun cevaplar verme — 3-5 cümle yeterli. Eğer soru konunla alakasızsa kibarca Nöron\'un odak alanlarına yönlendir.';
+  var systemPrompt = 'Sen Nöron adlı bir teknoloji ve bilim blogunun yapay zeka asistanısın. Kullanıcıların teknoloji, yapay zeka, bilim ve uzay hakkındaki sorularını Türkçe olarak yanıtlıyorsun. Cevapların açık, anlaşılır ve merak uyandırıcı olsun. Çok uzun cevaplar verme, 3-5 cümle yeterli. Eğer soru konunla alakasızsa kibarca Noron un odak alanlarına yonlendir.';
+
+  var GEMINI_KEY = 'AIzaSyDrxsyaydxjzZvrayclbUDFDJIoBj-SRHM';
 
   try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
+    var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        system: systemPrompt,
-        messages: qaMessages
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents: qaMessages
       })
     });
     var data = await res.json();
-    var answer = (data.content || []).map(function(c){ return c.text || ''; }).join('');
+    var answer = '';
+    try { answer = data.candidates[0].content.parts[0].text; } catch(e) {}
     if (!answer) answer = 'Üzgünüm, şu an cevap üretemiyorum. Lütfen tekrar dene.';
-    qaMessages.push({ role: 'assistant', content: answer });
+    qaMessages.push({ role: 'model', parts: [{ text: answer }] });
     var typing = document.getElementById('qa-typing');
     if (typing) typing.remove();
     addMessage('assistant', answer);
