@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>After GPT: Where Are Large Language Models Heading? — Noron</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24; --border:rgba(255,255,255,0.08); --accent:#7c6fff; --accent2:#00e5c0; --text:#f0eeff; --muted:rgba(240,238,255,0.5); --tag-bg:rgba(124,111,255,0.12); --tag-color:#a89fff; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1.5rem 3rem; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); z-index:100; }
+  .logo { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; letter-spacing:-0.02em; background:linear-gradient(135deg,#7c6fff,#00e5c0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--text); }
+  .article-wrapper { max-width:720px; margin:0 auto; padding:5rem 2rem 8rem; }
+  .back-link { display:inline-flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.85rem; margin-bottom:3rem; transition:color 0.2s; }
+  .back-link:hover { color:var(--text); }
+  .article-tag { display:inline-block; background:var(--tag-bg); color:var(--tag-color); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(124,111,255,0.2); margin-bottom:1.5rem; }
+  .article-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:900; line-height:1.15; letter-spacing:-0.03em; margin-bottom:1.5rem; }
+  .article-meta { display:flex; align-items:center; gap:1rem; font-size:0.8rem; color:var(--muted); padding-bottom:2rem; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+  .dot { width:3px; height:3px; border-radius:50%; background:var(--muted); }
+  .article-content h2 { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; letter-spacing:-0.02em; margin:3rem 0 1rem; line-height:1.3; }
+  .article-content p { font-size:1.05rem; line-height:1.85; color:rgba(240,238,255,0.85); margin-bottom:1.5rem; }
+  .article-content strong { color:var(--text); font-weight:500; }
+  .callout { background:var(--surface); border-left:3px solid var(--accent); border-radius:0 0.75rem 0.75rem 0; padding:1.5rem 2rem; margin:2rem 0; font-size:1rem; color:rgba(240,238,255,0.9); line-height:1.7; font-style:italic; }
+  .highlight-box { background:var(--surface2); border:1px solid var(--border); border-radius:1rem; padding:1.5rem 2rem; margin:2rem 0; }
+  .highlight-box h3 { font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--tag-color); margin-bottom:1rem; }
+  .highlight-box ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+  .highlight-box ul li { font-size:0.95rem; color:rgba(240,238,255,0.8); padding-left:1.2rem; position:relative; }
+  .highlight-box ul li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.8rem; }
+  .article-footer { margin-top:5rem; padding-top:2rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .article-footer a { color:var(--accent); text-decoration:none; font-size:0.9rem; transition:opacity 0.2s; }
+  .article-footer a:hover { opacity:0.7; }
+  footer { border-top:1px solid var(--border); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.8rem; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index-en.html">Noron</a>
+  <ul class="nav-links">
+    <li><a href="tum-makaleler-en.html">All Articles</a></li>
+    <li><a href="hakkinda-en.html">About</a></li>
+  </ul>
+</nav>
+<div class="article-wrapper">
+  <a class="back-link" href="index-en.html">← Back to home</a>
+  <div class="article-tag">Artificial Intelligence</div>
+  <h1 class="article-title">After GPT: Where Are Large Language Models Heading?</h1>
+  <div class="article-meta">
+    <span>May 5, 2026</span><div class="dot"></div>
+    <span>8 min read</span><div class="dot"></div>
+    <span>Noron Editorial</span>
+  </div>
+  <div class="article-content">
+    <p>When ChatGPT was introduced to the world at the end of 2022, large language models (LLMs) became part of everyday life. But since then, the AI field has advanced so rapidly that the door GPT opened is now seen merely as a starting point. So what comes next?</p>
+    <div class="callout">
+      The idea that "the bigger the language model, the better" is now being questioned. The real race is no longer about size — it's about efficiency.
+    </div>
+    <h2>The Limits of Scaling Laws</h2>
+    <p>AI researchers long believed in the "scaling law": the bigger the model, the more data, the more compute, the better the result. This held true going from GPT-3 to GPT-4. But by 2025, this approach hit a serious wall.</p>
+    <p>New generation models now aim for higher performance with fewer parameters. <strong>Intelligence in architecture is overtaking the sheer number of parameters.</strong> The most striking example of this shift was DeepSeek's open-source models, which matched the performance of massive rivals at a fraction of the cost.</p>
+    <div class="highlight-box">
+      <h3>Emerging new approaches</h3>
+      <ul>
+        <li>Mixture of Experts (MoE) — A different "expert" activates for each query</li>
+        <li>Test-time compute — The model "thinks" longer before answering</li>
+        <li>Multimodal architecture — Text, vision, audio and code unified in one model</li>
+        <li>Small but powerful models — LLMs that run on phones without cloud dependency</li>
+      </ul>
+    </div>
+    <h2>The Reasoning Revolution</h2>
+    <p>Perhaps 2025's biggest surprise was "reasoning models." OpenAI's o1 series, Anthropic's Claude, and Google's Gemini are no longer just predicting the next word — they're gaining the ability to think step by step, correct errors, and break down complex problems.</p>
+    <p>This change is fundamental. A language model is no longer just a system that "knows what to say" — it's evolving into one that <strong>"knows how to think."</strong></p>
+    <h2>Agent Systems: AI Working Autonomously</h2>
+    <p>The next big wave is agent systems. Instead of giving a single answer to a single question, models can now execute a task from start to finish — reading files, searching the web, writing and running code, evaluating results, and retrying if needed — all without human intervention.</p>
+    <div class="callout">
+      The future of AI may not be a single super-model, but a network of multiple agents that communicate, collaborate, and monitor each other.
+    </div>
+    <h2>Open Source vs. Closed Source</h2>
+    <p>In 2026, one of the hottest debates in the AI world is this very question. Meta's Llama series, Mistral's models, and local models emerging from many countries — including Turkey — prove that AI is not exclusively owned by a handful of large companies.</p>
+    <h2>Conclusion: The Pace Won't Slow</h2>
+    <p>After GPT, large language models are evolving into systems that are smaller, more efficient, better at reasoning, and more capable of working autonomously. This transformation is not slowing down — on the contrary, a new breaking point arrives every month.</p>
+  </div>
+  <div class="article-footer">
+    <a href="index-en.html">← All articles</a>
+    <span style="font-size:0.8rem;color:var(--muted);">May 5, 2026 · Noron</span>
+  </div>
+</div>
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#7c6fff,#00e5c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Noron</div>
+  <span>© 2026 Noron · Technology, AI & Science</span>
+</footer>
+</body>
+</html>
