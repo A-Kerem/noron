@@ -345,9 +345,9 @@ async function sendQuestion(isFull) {
   btn.disabled=true; btn.style.opacity='0.5';
   addTyping();
   var sys='You are the AI assistant of Noron, a technology and science blog. Answer user questions about technology, AI, science and space in English. Keep answers clear, engaging and concise — 3-5 sentences. If the question is off-topic, kindly redirect to Norons focus areas.';
-  var KEY='AIzaSyDrxsyaydxjzZvrayclbUDFDJIoBj-SRHM';
+  var KEY='AIzaSyDWIXluydWNajMoxcZZm5upoBARX36sg0E';
   try {
-    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:qaMessages,generationConfig:{maxOutputTokens:400,temperature:0.7}})});
+    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:qaMessages,generationConfig:{maxOutputTokens:400,temperature:0.7}})});
     var data=await res.json();
     var answer='';
     if(data.candidates&&data.candidates[0]&&data.candidates[0].content&&data.candidates[0].content.parts){answer=data.candidates[0].content.parts.map(function(p){return p.text||'';}).join('');}
